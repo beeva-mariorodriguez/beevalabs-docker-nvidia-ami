@@ -8,6 +8,8 @@ apt update
 # install nvidia drivers & CUDA
 echo 'install nvidia drivers & cuda'
 yes N | apt install --no-upgrade -y -t jessie-backports nvidia-driver nvidia-smi libcuda1
+# if resolvconf is not installed, resolv.conf wont update correctly via DHCP
+apt install -y resolvconf
 
 # nvidia-docker, manual installation
 echo 'install nvidia-docker'
