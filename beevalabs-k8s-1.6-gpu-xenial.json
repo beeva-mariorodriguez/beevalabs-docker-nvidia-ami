@@ -1,0 +1,46 @@
+{
+    "variables":{
+        "version": "0.4",
+        "k8sversion": "1.6"
+    },
+    "builders":[
+        {
+            "type": "amazon-ebs",
+            "region":"us-east-2",
+            "instance_type": "p2.xlarge",
+            "ami_name": "beevalabs-k8s-{{ user `k8sversion` }}-gpu-xenial-{{ user `version` }}",
+            "ssh_username": "admin",
+            "tags":{
+                "OS_Version":"Debian",
+                "Release":"Jessie"
+            },
+            "source_ami_filter": {
+                "filters": {
+                    "virtualization-type": "hvm",
+                     "name": "k8s-1.6-debian-jessie-amd64-hvm-ebs-2017-05-02",
+                     "root-device-type": "ebs"
+                },
+                "most_recent": true
+			}
+        }
+	],
+	"provisioners":[
+		{
+			"type":"file",
+			"source":"beevalabs-k8s-1.6-gpu-xenial.sh",
+			"destination":"/tmp/beevalabs-k8s-1.6-gpu-xenial.sh"
+		},
+		{
+			"type":"file",
+			"source":"nvidia-docker.service",
+			"destination":"/tmp/nvidia-docker.service"
+		},
+        {
+            "type":"shell",
+            "inline":[
+                "sudo /tmp/beevalabs-k8s-1.6-gpu-xenial.sh"
+            ]
+        }
+    ]
+}
+
