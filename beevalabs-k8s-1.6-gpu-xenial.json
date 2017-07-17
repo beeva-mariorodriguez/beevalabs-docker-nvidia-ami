@@ -1,6 +1,6 @@
 {
     "variables":{
-        "version": "0.4",
+        "version": "0.5",
         "k8sversion": "1.6"
     },
     "builders":[
@@ -29,11 +29,6 @@
 			"type":"file",
 			"source":"beevalabs-k8s-1.6-gpu-xenial.sh",
 			"destination":"/tmp/beevalabs-k8s-1.6-gpu-xenial.sh"
-		},
-		{
-			"type":"file",
-			"source":"nvidia-docker.service",
-			"destination":"/tmp/nvidia-docker.service"
 		},
         {
             "type":"shell",
