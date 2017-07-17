@@ -7,7 +7,7 @@
         {
             "type": "amazon-ebs",
             "region":"us-east-2",
-            "instance_type": "p2.xlarge",
+            "instance_type": "t2.medium",
             "ami_name": "beevalabs-k8s-{{ user `k8sversion` }}-gpu-xenial-{{ user `version` }}",
             "ssh_username": "admin",
             "tags":{
