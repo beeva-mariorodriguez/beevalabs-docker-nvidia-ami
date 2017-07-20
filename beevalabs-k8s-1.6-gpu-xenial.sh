@@ -12,3 +12,9 @@ cp /usr/lib/x86_64-linux-gnu/libcuda.so* /usr/lib/nvidia/
 # if resolvconf is not installed, resolv.conf wont update correctly via DHCP
 apt install -y resolvconf
 
+# nvidia-devicefiles
+cp /tmp/nvidia-devicefiles.sh /usr/local/bin
+cp /tmp/nvidia-devicefiles.service /etc/systemd/system/nvidia-devicefiles.service
+systemctl daemon-reload
+systemctl enable nvidia-devicefiles
+

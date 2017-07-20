@@ -1,6 +1,6 @@
 {
     "variables":{
-        "version": "0.5",
+        "version": "0.5.3",
         "k8sversion": "1.6"
     },
     "builders":[
@@ -30,6 +30,17 @@
 			"source":"beevalabs-k8s-1.6-gpu-xenial.sh",
 			"destination":"/tmp/beevalabs-k8s-1.6-gpu-xenial.sh"
 		},
+		{
+			"type":"file",
+			"source":"nvidia-devicefiles.sh",
+			"destination":"/tmp/nvidia-devicefiles.sh"
+		},
+		{
+			"type":"file",
+			"source":"nvidia-devicefiles.service",
+			"destination":"/tmp/nvidia-devicefiles.service"
+		},
+
         {
             "type":"shell",
             "inline":[
