@@ -8,7 +8,7 @@
             "type": "amazon-ebs",
             "region":"us-east-2",
             "instance_type": "t2.medium",
-            "ami_name": "beevalabs-k8s-{{ user `k8sversion` }}-gpu-xenial-{{ user `version` }}",
+            "ami_name": "beevalabs-k8s-{{ user `k8sversion` }}-gpu-jessie-{{ user `version` }}",
             "ssh_username": "admin",
             "tags":{
                 "OS_Version":"Debian",
@@ -27,8 +27,8 @@
 	"provisioners":[
 		{
 			"type":"file",
-			"source":"beevalabs-k8s-1.6-gpu-xenial.sh",
-			"destination":"/tmp/beevalabs-k8s-1.6-gpu-xenial.sh"
+			"source":"beevalabs-k8s-1.6-gpu-jessie.sh",
+			"destination":"/tmp/beevalabs-k8s-1.6-gpu-jessie.sh"
 		},
 		{
 			"type":"file",
@@ -44,7 +44,7 @@
         {
             "type":"shell",
             "inline":[
-                "sudo /tmp/beevalabs-k8s-1.6-gpu-xenial.sh"
+                "sudo /tmp/beevalabs-k8s-1.6-gpu-jessie.sh"
             ]
         }
     ]
