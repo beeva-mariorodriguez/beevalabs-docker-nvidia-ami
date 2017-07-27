@@ -7,7 +7,7 @@ apt update
 
 # install nvidia drivers & CUDA
 echo 'install nvidia drivers & cuda'
-yes N | apt install --no-upgrade -y -t jessie-backports nvidia-driver nvidia-smi libcuda1
+yes N | apt install --no-upgrade -y -t jessie-backports nvidia-driver nvidia-smi libcuda1 nvidia-cuda-mps
 cp /usr/lib/x86_64-linux-gnu/libcuda.so* /usr/lib/nvidia/
 # if resolvconf is not installed, resolv.conf wont update correctly via DHCP
 apt install -y resolvconf
