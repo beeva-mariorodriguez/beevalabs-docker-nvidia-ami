@@ -12,7 +12,7 @@ yes N | apt install --no-upgrade -y -t jessie-backports nvidia-driver nvidia-smi
 mkdir -p /usr/local/nvidia/lib64
 mkdir -p /usr/local/nvidia/bin
 cp /usr/lib/x86_64-linux-gnu/libcuda.so.1 /usr/local/nvidia/lib64/
-ln -s libcuda.so /usr/local/nvidia/lib64/libcuda.so.1
+ln -s libcuda.so.1 /usr/local/nvidia/lib64/libcuda.so
 cp /usr/lib/x86_64-linux-gnu/libnvidia-fatbinaryloader.so.375.66 /usr/local/nvidia/lib64/
 cp /usr/lib/x86_64-linux-gnu/libnvidia-ml.so.1 /usr/local/nvidia/lib64/
 cp /usr/bin/nvidia-smi /usr/local/nvidia/bin

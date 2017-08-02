@@ -1,6 +1,6 @@
 {
     "variables":{
-        "version": "0.6.1",
+        "version": "0.6.2",
         "k8sversion": "1.6"
     },
     "builders":[
