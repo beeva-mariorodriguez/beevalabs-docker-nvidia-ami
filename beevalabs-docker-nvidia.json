@@ -1,0 +1,55 @@
+{
+    "variables":{
+        "version": "0.3",
+        "debian_release": "stretch"
+    },
+    "builders":[
+        {
+            "type": "amazon-ebs",
+            "region":"us-east-2",
+            "instance_type": "t2.medium",
+            "ami_name": "beevalabs-docker-nvidia-{{ user `version` }}",
+            "ssh_username": "admin",
+            "tags":{
+                "OS_Version":"Debian",
+                "Release":"Jessie"
+            },
+            "source_ami_filter": {
+                "filters": {
+                    "virtualization-type": "hvm",
+                    "name": "debian-{{ user `debian_release` }}-hvm-x86_64*",
+                    "root-device-type": "ebs"
+                },
+                "owners": ["679593333241"],
+                "most_recent": true
+            }
+        }
+	],
+	"provisioners":[
+		{
+			"type":"file",
+			"source": "beevalabs-docker-nvidia-{{ user `debian_release` }}.sh",
+			"destination":"/tmp/setup_vm.sh"
+		},
+		{
+			"type":"file",
+			"source": "nvidia-devicefiles.service",
+			"destination":"/tmp/nvidia-devicefiles.service"
+		},
+		{
+			"type":"file",
+			"source": "nvidia-devicefiles.sh",
+			"destination":"/tmp/nvidia-devicefiles.sh"
+		},
+        {
+            "type":"shell",
+            "inline":[
+                "sudo /tmp/setup_vm.sh",
+                "sudo cp /tmp/nvidia-devicefiles.service /etc/systemd/system/",
+                "sudo systemctl daemon-reload",
+                "sudo systemctl enable nvidia-devicefiles"
+            ]
+        }
+    ]
+}
+
