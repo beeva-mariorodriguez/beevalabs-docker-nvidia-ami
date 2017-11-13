@@ -1,6 +1,6 @@
 {
     "variables":{
-        "version": "0.3",
+        "version": "0.4",
         "debian_release": "stretch"
     },
     "builders":[
@@ -46,6 +46,7 @@
             "inline":[
                 "sudo /tmp/setup_vm.sh",
                 "sudo cp /tmp/nvidia-devicefiles.service /etc/systemd/system/",
+                "sudo cp /tmp/nvidia-devicefiles.sh /usr/local/bin/",
                 "sudo systemctl daemon-reload",
                 "sudo systemctl enable nvidia-devicefiles"
             ]

@@ -17,6 +17,7 @@ apt-get update
 # install docker
 echo 'installing docker'
 apt-get install -y docker-ce
+adduser admin docker
 # install nvidia drivers & CUDA
 echo 'installing nvidia drivers & cuda'
 apt-get install -y nvidia-driver nvidia-smi libcuda1 nvidia-cuda-mps
