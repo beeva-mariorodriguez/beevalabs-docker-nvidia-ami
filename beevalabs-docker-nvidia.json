@@ -1,6 +1,6 @@
 {
     "variables":{
-        "version": "0.5",
+        "version": "1.0",
         "debian_release": "stretch"
     },
     "builders":[
@@ -8,47 +8,33 @@
             "type": "amazon-ebs",
             "region":"us-east-2",
             "instance_type": "t2.medium",
-            "ami_name": "beevalabs-docker-nvidia-{{ user `version` }}",
+            "ami_name": "beevalabs-docker-nvidia-{{ user `debian_release` }}-{{ user `version` }}",
             "ssh_username": "admin",
             "tags":{
                 "OS_Version":"Debian",
-                "Release":"Jessie"
+                "Release":"Stretch"
             },
             "source_ami_filter": {
                 "filters": {
                     "virtualization-type": "hvm",
-                    "name": "debian-{{ user `debian_release` }}-hvm-x86_64*",
+                    "name": "debian-stretch-hvm-x86_64*",
                     "root-device-type": "ebs"
                 },
                 "owners": ["679593333241"],
                 "most_recent": true
             }
         }
-	],
-	"provisioners":[
-		{
-			"type":"file",
-			"source": "beevalabs-docker-nvidia-{{ user `debian_release` }}.sh",
-			"destination":"/tmp/setup_vm.sh"
-		},
-		{
-			"type":"file",
-			"source": "nvidia-devicefiles.service",
-			"destination":"/tmp/nvidia-devicefiles.service"
-		},
-		{
-			"type":"file",
-			"source": "nvidia-devicefiles.sh",
-			"destination":"/tmp/nvidia-devicefiles.sh"
-		},
+    ],
+    "provisioners":[
+        {
+            "type":"file",
+            "source": "setup_vm.sh",
+            "destination":"/tmp/setup_vm.sh"
+        },
         {
             "type":"shell",
             "inline":[
-                "sudo /tmp/setup_vm.sh",
-                "sudo cp /tmp/nvidia-devicefiles.service /etc/systemd/system/",
-                "sudo cp /tmp/nvidia-devicefiles.sh /usr/local/bin/",
-                "sudo systemctl daemon-reload",
-                "sudo systemctl enable nvidia-devicefiles"
+                "sudo /tmp/setup_vm.sh"
             ]
         }
     ]
