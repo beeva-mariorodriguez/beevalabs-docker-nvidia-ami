@@ -1,7 +1,7 @@
 {
     "variables":{
-        "version": "1.0",
-        "debian_release": "stretch"
+        "version": "0.5",
+        "debian_release": "jessie"
     },
     "builders":[
         {
@@ -12,15 +12,15 @@
             "ssh_username": "admin",
             "tags":{
                 "OS_Version":"Debian",
-                "Release":"Stretch"
+                "Release":"Jessie"
             },
             "source_ami_filter": {
                 "filters": {
                     "virtualization-type": "hvm",
-                    "name": "debian-stretch-hvm-x86_64*",
+                    "name": "k8s-1.7-debian-jessie-amd64-hvm-ebs-2017-10-26",
                     "root-device-type": "ebs"
                 },
-                "owners": ["679593333241"],
+                "owners": ["900152524948"],
                 "most_recent": true
             }
         }
