@@ -1,6 +1,6 @@
 {
     "variables":{
-        "version": "0.5",
+        "version": "0.6",
         "debian_release": "jessie"
     },
     "builders":[
@@ -17,10 +17,10 @@
             "source_ami_filter": {
                 "filters": {
                     "virtualization-type": "hvm",
-                    "name": "k8s-1.7-debian-jessie-amd64-hvm-ebs-2017-10-26",
+                    "name": "k8s-1.6-debian-jessie-amd64-hvm-ebs-2017-07-28",
                     "root-device-type": "ebs"
                 },
-                "owners": ["900152524948"],
+                "owners": ["383156758163"],
                 "most_recent": true
             }
         }
@@ -32,9 +32,23 @@
             "destination":"/tmp/setup_vm.sh"
         },
         {
+            "type":"file",
+            "source": "nvidia-devicefiles.sh",
+            "destination":"/tmp/nvidia-devicefiles.sh"
+        },
+        {
+            "type":"file",
+            "source": "nvidia-devicefiles.service",
+            "destination":"/tmp/nvidia-devicefiles.service"
+        },
+        {
             "type":"shell",
             "inline":[
-                "sudo /tmp/setup_vm.sh"
+                "sudo /tmp/setup_vm.sh",
+                "sudo cp /tmp/nvidia-devicefiles.sh /usr/local/bin",
+                "sudo cp /tmp/nvidia-devicefiles.service /etc/systemd/system/nvidia-devicefiles.service",
+                "sudo systemctl daemon-reload",
+                "sudo systemctl enable nvidia-devicefiles"
             ]
         }
     ]

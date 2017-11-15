@@ -1,0 +1,11 @@
+[Unit]
+Description=create nvidia GPU device files
+After=local-fs.target network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/nvidia-devicefiles.sh
+
+[Install]
+WantedBy=multi-user.target
+
