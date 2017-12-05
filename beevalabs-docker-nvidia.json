@@ -8,7 +8,7 @@
             "type": "amazon-ebs",
             "region":"us-east-2",
             "instance_type": "t2.medium",
-            "ami_name": "beevalabs-docker-nvidia-{{ user `debian_release` }}-{{ user `version` }}",
+            "ami_name": "beevalabs-k8s-nvidia-{{ user `debian_release` }}-{{ user `version` }}",
             "ssh_username": "admin",
             "tags":{
                 "OS_Version":"Debian",
