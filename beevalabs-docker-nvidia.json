@@ -8,7 +8,7 @@
             "type": "amazon-ebs",
             "region":"us-east-2",
             "instance_type": "t2.medium",
-            "ami_name": "beevalabs-docker-nvidia-{{ user `debian_release` }}-{{ user `version` }}",
+            "ami_name": "beevalabs-k8s-nvidia-{{ user `debian_release` }}-{{ user `version` }}",
             "ssh_username": "admin",
             "tags":{
                 "OS_Version":"Debian",
@@ -17,10 +17,10 @@
             "source_ami_filter": {
                 "filters": {
                     "virtualization-type": "hvm",
-                    "name": "debian-stretch-hvm-x86_64*",
+                    "name": "k8s-1.8-debian-stretch-amd64-hvm-ebs-2017-12-02",
                     "root-device-type": "ebs"
                 },
-                "owners": ["679593333241"],
+                "owners": ["383156758163"],
                 "most_recent": true
             }
         }
