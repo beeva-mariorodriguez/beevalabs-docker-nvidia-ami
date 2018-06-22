@@ -1,26 +1,29 @@
 {
     "variables":{
-        "version": "1.1",
-        "debian_release": "stretch"
+        "version": "1.2.2",
+        "ubuntu_release": "xenial"
     },
     "builders":[
         {
             "type": "amazon-ebs",
             "region":"us-east-2",
             "instance_type": "t2.medium",
-            "ami_name": "beevalabs-docker-nvidia-{{ user `debian_release` }}-{{ user `version` }}",
-            "ssh_username": "admin",
+            "ami_name": "beevalabs-docker-nvidia-{{ user `ubuntu_release` }}-{{ user `version` }}",
+            "ssh_username": "ubuntu",
             "tags":{
-                "OS_Version":"Debian",
-                "Release":"Stretch"
+                "OS_Version": "Ubuntu",
+                "Release": "Xenial",
+                "nvidia": "396",
+                "CUDA": "9.2",
+                "cudNN" : "7.1.4"
             },
             "source_ami_filter": {
                 "filters": {
                     "virtualization-type": "hvm",
-                    "name": "debian-stretch-hvm-x86_64*",
+                    "name": "ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*",
                     "root-device-type": "ebs"
                 },
-                "owners": ["679593333241"],
+                "owners": ["099720109477"],
                 "most_recent": true
             }
         }
@@ -29,7 +32,12 @@
         {
             "type":"file",
             "source": "setup_vm.sh",
-            "destination":"/tmp/setup_vm.sh"
+            "destination": "/tmp/setup_vm.sh"
+        },
+        {
+            "type": "file",
+            "source": "cudnn",
+            "destination": "/tmp"
         },
         {
             "type":"shell",

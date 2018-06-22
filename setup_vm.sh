@@ -14,38 +14,43 @@ apt-get install \
     gnupg2 \
     software-properties-common
 
-# add non-free and contrib repos
-{
-    echo "deb http://cdn-aws.deb.debian.org/debian stretch main non-free contrib"
-    echo "deb http://security.debian.org stretch/updates main non-free contrib"
-    echo "deb http://cdn-aws.deb.debian.org/debian stretch-updates main non-free contrib"
-    echo "deb http://cdn-aws.deb.debian.org/debian stretch/updates main non-free contrib"
-} > /etc/apt/sources.list
-
 # add docker CE repo
-curl -s -L https://download.docker.com/linux/debian/gpg | \
-  sudo apt-key add -
-echo "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" > /etc/apt/sources.list.d/docker.list
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+    apt-key add -
+
+add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
 
 # add nvidia-docker repo
-curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
-  sudo apt-key add -
+curl -fsSL https://nvidia.github.io/nvidia-docker/gpgkey | \
+  apt-key add -
 {
-    echo "deb https://nvidia.github.io/libnvidia-container/debian9/amd64 /"
-    echo "deb https://nvidia.github.io/nvidia-container-runtime/debian9/amd64 /"
-    echo "deb https://nvidia.github.io/nvidia-docker/debian9/amd64 /"
+    echo "deb https://nvidia.github.io/libnvidia-container/ubuntu16.04/amd64 /"
+    echo "deb https://nvidia.github.io/nvidia-container-runtime/ubuntu16.04/amd64 /"
+    echo "deb https://nvidia.github.io/nvidia-docker/ubuntu16.04/amd64 /"
 } > /etc/apt/sources.list.d/nvidia-docker.list
 
 apt-get update
 
+# add cuda repo
+curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub | \
+    apt-key add -
+echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/cuda.list
+
 # install docker
 echo 'installing docker'
 apt-get install -y docker-ce
-adduser admin docker
+adduser ubuntu docker
 # install nvidia drivers & CUDA
 echo 'installing nvidia drivers & cuda'
-apt-get install -y nvidia-driver nvidia-smi libcuda1 nvidia-cuda-mps
+apt-get install -y nvidia-396 nvidia-modprobe cuda-9.2
 # install nvidia-docker2
 echo 'installing nvidia-docker'
 apt-get install -y nvidia-docker2
+# install cudNN
+echo 'installing cudNN'
+dpkg -i /tmp/cudnn/libcudnn*.deb
+# python things
+echo 'installing python things'
+apt-get install -y python3-pip python3-virtualenv ipython3 ipython3-notebook python3-pycuda
 
