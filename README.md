@@ -1,6 +1,6 @@
 # beevalabs-docker-gpu-ami
 
-packer template for building an aws image based on debian stretch AMI plus nvidia drivers and docker
+packer template for building an aws image based on ubuntu xenial AMI plus nvidia drivers and docker
 
 ## instructions
 
